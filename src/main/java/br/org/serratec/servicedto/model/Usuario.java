@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+// import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Usuario {
     
@@ -18,6 +20,7 @@ public class Usuario {
 
     private String email;
 
+    // @JsonIgnore usar isso retiraria do post também
     private String senha;
 
     public Long getId() {
