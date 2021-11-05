@@ -2,27 +2,19 @@ package br.org.serratec.servicedto.dto;
 
 import br.org.serratec.servicedto.model.Usuario;
 
-public class UsuarioDTO {
-
-    private Long id; //precisa do id pro path lá do controller
+public class UsuarioInserirDTO { //todas as infos que vão ficar visíveis ao usuário
+    
     private String nome;
     private String email;
+    private String senha;
 
-    public UsuarioDTO() {
+    public UsuarioInserirDTO() {
     }
 
-    public UsuarioDTO(Usuario usuario) {
-        this.id = usuario.getId();
+    public UsuarioInserirDTO(Usuario usuario) {
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.senha = usuario.getSenha();
     }
 
     public String getNome() {
@@ -39,6 +31,14 @@ public class UsuarioDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 }

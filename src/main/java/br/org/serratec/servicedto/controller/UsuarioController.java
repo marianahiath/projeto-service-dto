@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.org.serratec.servicedto.dto.UsuarioDTO;
+import br.org.serratec.servicedto.dto.UsuarioInserirDTO;
 import br.org.serratec.servicedto.exception.EmailException;
-import br.org.serratec.servicedto.model.Usuario;
 import br.org.serratec.servicedto.service.UsuarioService;
 
 @RestController
@@ -28,16 +30,16 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> inserir(@RequestBody Usuario usuario) {
+    public ResponseEntity<Object> inserir(@RequestBody UsuarioInserirDTO usuarioInserirDTO) {
         try {
-            usuario = usuarioService.inserir(usuario);
+            UsuarioDTO usuarioDTO = usuarioService.inserir(usuarioInserirDTO);
 
            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(usuario.getId())
+            .buildAndExpand(usuarioDTO.getId())
             .toUri();
 
-           return ResponseEntity.created(uri).body(usuario);
+           return ResponseEntity.created(uri).body(usuarioDTO);
         } catch (EmailException e) {
            return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
@@ -54,5 +56,13 @@ public class UsuarioController {
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> listar() {
         return ResponseEntity.ok(usuarioService.listar());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+   
+        usuarioService.deletar(id);
+        
+        return ResponseEntity.noContent().build();
     }
 }

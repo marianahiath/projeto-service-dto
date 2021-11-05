@@ -56,6 +56,11 @@ public class Usuario {
     }
 
     @Override
+    public String toString() {
+        return "nome: " + nome + "\nemail: " + email;
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
