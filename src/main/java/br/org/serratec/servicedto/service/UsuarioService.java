@@ -60,6 +60,7 @@ public class UsuarioService {
     }
 
     public ResponseEntity<Void> deletar(Long id) {
+        
         if(usuarioRepository.existsById(id)) {
             usuarioRepository.deleteById(id);
 

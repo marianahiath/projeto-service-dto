@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 // import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,6 +24,10 @@ public class Usuario {
 
     // @JsonIgnore usar isso retiraria do post também
     private String senha;
+
+    @ManyToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
 
     public Long getId() {
         return id;
@@ -55,9 +61,12 @@ public class Usuario {
         this.senha = senha;
     }
 
-    @Override
-    public String toString() {
-        return "nome: " + nome + "\nemail: " + email;
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override
